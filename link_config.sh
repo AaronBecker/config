@@ -1,0 +1,56 @@
+#!/bin/bash
+
+target=$HOME/.config
+force=false
+
+while [ $# != 0 ]
+do
+    flag="$1"
+    shift
+    case $flag in
+        "--target"|"-t")
+        target="$1"
+        shift 
+        ;;
+
+        "--force"|"-f")
+        force=true
+        ;;
+
+        "--help"|"-h")
+        echo "Usage: install_link [OPTION]"
+        echo "Link files in the current directory into a target directory,"
+        echo "construcing any necessary intermediate directories."
+        echo "  -t, --target DIR     the root directory for all links"
+        echo "  -f, --force          overwrite existing non-link files"
+        echo "  -h, --help           display this message and exit"
+        exit
+   esac
+done
+
+# if our target is a symlink, silently replace it
+# if it's a file, leave it alone and complain
+function cond_link() {
+    if ( $force )
+    then
+        rm -rf $target/$1
+    else
+        [[ -h $target/$1 ]] && rm $target/$1
+    fi
+    ln -s `pwd`/$1 $target/$1
+}
+
+
+for file in `find . -type d -not -path "./.git"`
+do
+    if ( $force )
+    then
+        [[ -h $target/$file ]] && rm $target/$file
+    fi
+    mkdir -p $target/$file
+done
+
+for file in `find . -type f ! -name "link_config" ! -path "./.git/*"`
+do
+    cond_link $file
+done
