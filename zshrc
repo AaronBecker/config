@@ -60,12 +60,24 @@ HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.zsh_history
 
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.config/zsh-history-substring-search/zsh-history-substring-search.zsh
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
+if [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+	source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+
+if [[ -f ~/.config/zsh-history-substring-search/zsh-history-substring-search.zsh ]]; then
+	source ~/.config/zsh-history-substring-search/zsh-history-substring-search.zsh
+	bindkey '^[[A' history-substring-search-up
+	bindkey '^[[B' history-substring-search-down
+	bindkey "$terminfo[kcuu1]" history-substring-search-up
+	bindkey "$terminfo[kcud1]" history-substring-search-down
+else
+	autoload -U up-line-or-beginning-search
+	autoload -U down-line-or-beginning-search
+	zle -N up-line-or-beginning-search
+	zle -N down-line-or-beginning-search
+	bindkey "^[[A" up-line-or-beginning-search
+	bindkey "^[[B" down-line-or-beginning-search
+fi
 
 # Use modern completion system
 autoload -Uz compinit
@@ -77,7 +89,11 @@ zstyle ':completion:*' completer _expand _complete
 #zstyle ':completion:*' format 'Completing %d'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' menu select=2
-eval "$(dircolors -b)"
+
+if which dircolors > /dev/null 2>&1; then
+	eval "$(dircolors -b)"
+fi
+
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
@@ -89,10 +105,12 @@ zstyle ':completion:*' verbose true
 
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
-source ~/.config/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+source ~/local/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+export PATH=$PATH:~/bin:~/local/bin
+[[ ! -f ~/.zshrc_local ]] || source ~/.zshrc_local
 [[ ! -f ~/.alias ]] || source ~/.alias
 [[ ! -f ~/.path ]] || source ~/.path
-

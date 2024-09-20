@@ -1,11 +1,28 @@
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
+local is_darwin =  wezterm.target_triple:find("darwin") ~= nil
+
 config.color_scheme = "Catppuccin Mocha"
-config.font_size = 14
+if is_darwin then
+	config.font_size = 16
+else
+	config.font_size = 14
+end
+config.font = wezterm.font_with_fallback {
+	{
+		family = 'Fira Code',
+		harfbuzz_features = { 'calt=0' },
+	},
+	{
+		family = 'JetBrains Mono',
+		harfbuzz_features = { 'calt=0' },
+	},
+}
+
 
 config.use_fancy_tab_bar = true
-config.window_decorations = 'RESIZE'
+config.window_decorations = 'TITLE|RESIZE'
 
 config.audible_bell = "Disabled"
 config.visual_bell = {
