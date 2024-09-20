@@ -67,4 +67,34 @@ config.keys = {
     }
 }
 
+config.mouse_bindings = {
+    -- On click, select text instead of opening links
+    {
+        event = { Up = { streak = 1, button = 'Left' } },
+        mods = 'NONE',
+        action = wezterm.action.CompleteSelection 'PrimarySelection',
+    },
+    -- CTRL-click opens links
+    {
+        event = { Up = { streak = 1, button = 'Left' } },
+        mods = 'CTRL',
+        action = wezterm.action.OpenLinkAtMouseCursor,
+    },
+    -- Disable the 'Down' event of CTRL-click to avoid weird program behaviors
+    {
+      event = { Down = { streak = 1, button = 'Left' } },
+      mods = 'CTRL',
+      action = wezterm.action.Nop,
+    },
+}
+
+config.ssh_domains = {
+    {
+        name = 'basa',
+        remote_address = 'basa.c.googlers.com',
+        username = 'akb',
+        assume_shell = 'Posix',
+    },
+}
+
 return config
