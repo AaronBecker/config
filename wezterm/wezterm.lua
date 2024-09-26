@@ -1,7 +1,8 @@
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
+wezterm.add_to_config_reload_watch_list(wezterm.config_dir)
 
-local is_darwin =  wezterm.target_triple:find("darwin") ~= nil
+local is_darwin = wezterm.target_triple:find("darwin") ~= nil
 
 config.color_scheme = "Catppuccin Mocha"
 if is_darwin then
