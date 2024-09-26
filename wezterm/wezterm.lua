@@ -64,6 +64,11 @@ config.keys = {
         key = 'w',
         mods = 'LEADER',
         action = wezterm.action.CloseCurrentPane { confirm = true },
+    },
+    {
+        key = 'b',
+        mods = 'LEADER',
+        action = wezterm.action.AttachDomain 'basa',
     }
 }
 
@@ -86,6 +91,12 @@ config.mouse_bindings = {
       mods = 'CTRL',
       action = wezterm.action.Nop,
     },
+    -- Triple-click selects the full output of the last command
+    {
+        event = { Down = { streak = 3, button = 'Left' } },
+        action = wezterm.action.SelectTextAtMouseCursor 'SemanticZone',
+        mods = 'NONE',
+    },
 }
 
 config.ssh_domains = {
@@ -94,7 +105,17 @@ config.ssh_domains = {
         remote_address = 'basa.c.googlers.com',
         username = 'akb',
         assume_shell = 'Posix',
+        remote_wezterm_path = '/usr/local/google/home/akb/local/bin/wezterm'
     },
 }
+
+wezterm.on('format-tab-title', function(tab)
+    local pane = tab.active_pane
+    local title = pane.title
+    if pane.domain_name then
+        title = title .. ' (' .. pane.domain_name .. ')'
+    end
+    return title
+end)
 
 return config
