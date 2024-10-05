@@ -92,12 +92,6 @@ config.mouse_bindings = {
       mods = 'CTRL',
       action = wezterm.action.Nop,
     },
-    -- Triple-click selects the full output of the last command
-    {
-        event = { Down = { streak = 3, button = 'Left' } },
-        action = wezterm.action.SelectTextAtMouseCursor 'SemanticZone',
-        mods = 'NONE',
-    },
 }
 
 config.ssh_domains = {
