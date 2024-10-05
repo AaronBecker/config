@@ -57,6 +57,18 @@ return {
 			})
 		end
 	},
+    {
+        "neovim/nvim-lspconfig",
+        dependencies = {
+        },
+        config = function()
+            require("lspconfig").rust_analyzer.setup {}
+        end,
+        opts = {
+            servers = {
+            }
+        }
+    },
 	
 	--{
 	--	"nvim-telescope/telescope-file-browser.nvim",
