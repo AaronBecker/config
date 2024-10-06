@@ -6,19 +6,19 @@ local is_darwin = wezterm.target_triple:find("darwin") ~= nil
 
 config.color_scheme = "Catppuccin Mocha"
 if is_darwin then
-	config.font_size = 16
+    config.font_size = 16
 else
-	config.font_size = 14
+    config.font_size = 14
 end
 config.font = wezterm.font_with_fallback {
-	{
-		family = 'Fira Code',
-		harfbuzz_features = { 'calt=0' },
-	},
-	{
-		family = 'JetBrains Mono',
-		harfbuzz_features = { 'calt=0' },
-	},
+    {
+        family = 'Fira Code',
+        harfbuzz_features = { 'calt=0' },
+    },
+    {
+        family = 'JetBrains Mono',
+        harfbuzz_features = { 'calt=0' },
+    },
 }
 
 
@@ -27,9 +27,9 @@ config.window_decorations = 'TITLE|RESIZE'
 
 config.audible_bell = "Disabled"
 config.visual_bell = {
-  fade_in_duration_ms = 75,
-  fade_out_duration_ms = 75,
-  target = 'CursorColor',
+    fade_in_duration_ms = 75,
+    fade_out_duration_ms = 75,
+    target = 'CursorColor',
 }
 
 local function move_pane(key, direction)
@@ -88,9 +88,9 @@ config.mouse_bindings = {
     },
     -- Disable the 'Down' event of CTRL-click to avoid weird program behaviors
     {
-      event = { Down = { streak = 1, button = 'Left' } },
-      mods = 'CTRL',
-      action = wezterm.action.Nop,
+        event = { Down = { streak = 1, button = 'Left' } },
+        mods = 'CTRL',
+        action = wezterm.action.Nop,
     },
 }
 
