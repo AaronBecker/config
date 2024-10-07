@@ -137,4 +137,52 @@ return {
             })
         end,
     },
+
+    {
+        "folke/which-key.nvim",
+        event = "VeryLazy",
+        opts = {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+        },
+        keys = {
+            {
+                "<leader>?",
+                function()
+                    require("which-key").show({ global = false })
+                end,
+                desc = "Buffer Local Keymaps (which-key)",
+            },
+        },
+    },
+
+    --{
+    --    'nvimdev/dashboard-nvim',
+    --    event = 'VimEnter',
+    --    config = function()
+    --        require('dashboard').setup {
+    --            theme = 'hyper',
+    --            config = {
+    --                header = { "",
+    --                    ' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
+    --                    ' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
+    --                    ' ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║',
+    --                    ' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
+    --                    ' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
+    --                    ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
+    --                    '' },
+    --                week_header = {
+    --                    enable = false,
+    --                },
+    --                project = {
+    --                    enable = false,
+    --                },
+    --                shortcut = {},
+    --            },
+    --        }
+    --    end,
+    --    dependencies = { { 'nvim-tree/nvim-web-devicons' } }
+    --}
+
 }
