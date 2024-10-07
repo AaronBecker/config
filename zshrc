@@ -106,12 +106,49 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
+# p10k
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/local/powerlevel10k/powerlevel10k.zsh-theme ]] || source ~/local/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.config/powerlevel10k/powerlevel10k.zsh-theme ]] || source ~/.config/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+# Setup for modern terminal tools.
+
+# nvim
+if which nvim > /dev/null 2>&1; then
+    alias vim=nvim
+fi
+
+# fzf
+[[ ! -f /usr/share/doc/fzf/examples/completion.zsh ]] || source /usr/share/doc/fzf/examples/completion.zsh
+[[ ! -f /usr/share/doc/fzf/examples/key-bindings.zsh ]] || source /usr/share/doc/fzf/examples/key-bindings.zsh
+
+# eza
+if which eza > /dev/null 2>&1; then
+    alias ls='eza'
+fi
+
+# zoxide
+if which zoxide > /dev/null 2>&1; then
+    eval "$(zoxide init zsh)"
+    alias cd='z'
+fi
+
+# bat
+if which batcat > /dev/null 2>&1; then
+    alias cat='batcat'
+elif which bat > /dev/null 2>&1; then
+    alias cat='bat'
+fi
+
+if which fdfind> /dev/null 2>&1; then
+    alias fd=fdfind
+fi
+
+# tldr and delta don't need any particular shell settings
+
 export PATH=$PATH:~/bin:~/local/bin
 [[ ! -f ~/.zshrc_local ]] || source ~/.zshrc_local
 [[ ! -f ~/.alias ]] || source ~/.alias
 [[ ! -f ~/.path ]] || source ~/.path
+
