@@ -135,6 +135,14 @@ return {
             end
 
             vim.keymap.set('i', '<CR>', 'v:lua._G.cr_action()', { expr = true })
+            vim.keymap.set(
+                "",
+                "<Leader>c",
+                function()
+                    vim.g.minicompletion_disable = not vim.g.minicompletion_disable
+                end,
+                { desc = "Toggle completion" }
+            )
         end
     },
 

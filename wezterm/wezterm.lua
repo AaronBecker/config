@@ -4,7 +4,8 @@ wezterm.add_to_config_reload_watch_list(wezterm.config_dir)
 
 local is_darwin = wezterm.target_triple:find("darwin") ~= nil
 
-config.color_scheme = "Catppuccin Mocha"
+--config.color_scheme = "Catppuccin Mocha"
+config.color_scheme = "Kanagawa (Gogh)"
 if is_darwin then
     config.font_size = 16
 else
