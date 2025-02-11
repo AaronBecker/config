@@ -20,6 +20,7 @@ return {
                     "cuda",
                     "diff",
                     "go",
+                    "glsl",
                     "html",
                     "java",
                     "javascript",
@@ -67,9 +68,11 @@ return {
             require("mason-lspconfig").setup {
                 ensure_installed = {
                     "clangd",
+                    "glsl_analyzer",
                     "gopls",
                     "lua_ls",
-                    "rust_analyzer"
+                    "rust_analyzer",
+                    "zls",
                 },
             }
         end
@@ -85,8 +88,10 @@ return {
             local lspconfig = require("lspconfig")
             lspconfig.clangd.setup {}
             lspconfig.gopls.setup {}
+            lspconfig.glsl_analyzer.setup {}
             lspconfig.lua_ls.setup {}
             lspconfig.rust_analyzer.setup {}
+            lspconfig.zls.setup {}
         end,
         opts = {
             servers = {

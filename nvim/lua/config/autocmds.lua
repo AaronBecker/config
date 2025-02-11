@@ -20,3 +20,8 @@ autocmd('TextYankPost', {
     desc = 'highlight yanked text',
     callback = function() vim.highlight.on_yank() end,
 })
+
+autocmd({ 'BufNewFile', 'BufRead' }, {
+    desc = 'highlight .vs and .fs shader files',
+    callback = function() vim.cmd('set filetype=glsl') end,
+})
